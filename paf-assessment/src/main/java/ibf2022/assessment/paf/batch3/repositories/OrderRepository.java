@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.print.Doc;
-
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 import ibf2022.assessment.paf.batch3.models.BeerSimple;
-import ibf2022.assessment.paf.batch3.models.Brewery;
 
 @Repository
 public class OrderRepository {

@@ -1,8 +1,6 @@
 package ibf2022.assessment.paf.batch3.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ibf2022.assessment.paf.batch3.models.Beer;
-import ibf2022.assessment.paf.batch3.models.BeerSimple;
 import ibf2022.assessment.paf.batch3.models.Brewery;
 import ibf2022.assessment.paf.batch3.models.Style;
 import ibf2022.assessment.paf.batch3.services.BeerService;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
@@ -49,15 +45,12 @@ public class BeerController {
 	// TODO Task 4 - view 2
 	// http://localhost:8080/brewery/1
 	@GetMapping("/brewery/{id}")
-	public String showBrewery(@PathVariable int id, Model model, HttpSession session) {
+	public String showBrewery(@PathVariable int id, Model model) {
 		Brewery brewery = service.getBrewery(id).get();
 
 		model.addAttribute("brewery", brewery);
 		model.addAttribute("breweryName", brewery.getName());
 		model.addAttribute("breweryAddress", brewery.getAddress1() + " " + brewery.getCity());
-
-		// model.addAttribute("beerSimple", beerSimple);
-		// session.setAttribute("order", brewery);
 
 		return "view2";
 
