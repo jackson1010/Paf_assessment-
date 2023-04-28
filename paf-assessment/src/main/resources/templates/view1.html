@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+
+	<table border="1" th:if="${not #lists.isEmpty(beers)}">
+		<h1><div data-th-text =${beerName}></div></h1>
+		<thead>
+			<tr>
+				<th>Beer Name</th>
+				<th>Description </th>
+				<th>Brewery Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="s: ${beers}" data-th-object="${s}">
+				<td>
+					<span data-th-text="*{beerName}"></span>
+				</td>
+				<td>
+					<span data-th-text="*{beerDescription}"></span>
+				</td>
+				<td>
+					<a data-th-href="@{/brewery/{id}(id=*{breweryId})}">
+						<span data-th-text="*{breweryName}"></span>
+					</a>
+				</td>
+			</tr>
+			<a data-th-href="@{/}">Back</a>
+
+		</tbody>
+	</table>
+	<div th:if="${#lists.isEmpty(beers)}">No beers found for this style</div>
+
+</body>
+
+</html>

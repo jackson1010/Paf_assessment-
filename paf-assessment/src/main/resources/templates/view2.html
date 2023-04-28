@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	h1 {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.label {
+		font-weight: bold;
+	}
+
+	.info {
+		margin-bottom: 1rem;
+	}
+
+	.info a {
+		color: blue;
+		text-decoration: none;
+	}
+
+	.info a:hover {
+		text-decoration: underline;
+	}
+</style>
+
+<body>
+	<div th:if="${brewery != null}">
+		<h1>
+			<div data-th-text="${breweryName}"></div>
+		</h1>
+		<div class="info">
+			<span class="label">Description:</span> <span data-th-text="${brewery.description}"></span>
+		</div>
+		<div class="info">
+			<span class="label">Address:</span> <span data-th-text="${breweryAddress}"></span>
+		</div>
+		<div class="info">
+			<span class="label">Phone:</span> <span data-th-text="${brewery.phone}"></span>
+		</div>
+		<div class="info">
+			<span class="label">Web:</span> <a data-th-href="@{${brewery.website}}">Go</a>
+		</div>
+
+		<a th:href="@{/}">Back</a>
+
+		<form method="POST" data-th-action="@{/brewery/{breweryId}/order(breweryId=${brewery.breweryId})}">
+			<input type="submit" value="Place Order" style="margin-bottom: 1rem;">
+			<table border="1">
+				<caption style="caption-side: top; font-weight: bold; font-size: 1.5rem;">Beers</caption>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="s: ${brewery.beers}" th:object="${s}">
+						<td>
+							<span th:text="*{beerName}"></span>
+						</td>
+						<td>
+							<span th:text="*{beerDescription}"></span>
+						</td>
+						<td>
+							<input type="number" name="beerQuantity[]" min="0" />
+							<input type="hidden" th:value="*{beerId}" name="beerId[]" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<div th:if="${brewery == null}">Brewery not found</div>
+</body>
+
+
+</html>
